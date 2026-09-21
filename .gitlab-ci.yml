@@ -1,0 +1,32 @@
+stages:
+  - build
+
+default:
+  image: ubuntu:24.04
+  interruptible: true
+
+build-kernel:
+  stage: build
+  timeout: 3h
+  before_script:
+    - apt-get update
+    - >-
+      DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends
+      bc bison build-essential ca-certificates cpio curl device-tree-compiler
+      flex git libelf-dev libssl-dev python3 rsync xz-utils
+  script:
+    - ./scripts/build.sh
+  artifacts:
+    name: "chopin-docker-kernel-${CI_COMMIT_SHORT_SHA}"
+    when: always
+    expire_in: 14 days
+    paths:
+      - dist/
+  cache:
+    key: proton-clang-13
+    paths:
+      - .work/proton-clang-13/
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "web"'

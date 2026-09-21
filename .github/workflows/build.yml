@@ -1,0 +1,47 @@
+name: Build Chopin kernel
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "README.md"
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kernel-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+
+    steps:
+      - name: Check out build wrapper
+        uses: actions/checkout@v7
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            bc bison build-essential ca-certificates cpio curl \
+            device-tree-compiler flex git libelf-dev libssl-dev \
+            python3 rsync xz-utils
+
+      - name: Build kernel
+        run: ./scripts/build.sh
+
+      - name: Upload kernel artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: chopin-docker-kernel-${{ github.sha }}
+          path: dist/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 14
+
