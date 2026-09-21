@@ -1,0 +1,12 @@
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -275 +275,7 @@
++unsigned int trace_idx;
++EXPORT_SYMBOL(trace_idx);
++
++unsigned char trace_array[40960][536] __aligned(8);
++EXPORT_SYMBOL(trace_array);
++
+ static struct trace_array global_trace = {
+
