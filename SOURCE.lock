@@ -1,0 +1,9 @@
+# Reproducible inputs. This file is sourced by the build scripts.
+KERNEL_REPO=https://github.com/ChopinKernels/kernel_xiaomi_chopin_android_S.git
+KERNEL_BRANCH=S
+KERNEL_COMMIT=e42bf4992
+KERNEL_DEFCONFIG=chopin_user_defconfig
+
+TOOLCHAIN_REPO=https://gitlab.com/LeCmnGend/proton-clang.git
+TOOLCHAIN_BRANCH=clang-13
+
