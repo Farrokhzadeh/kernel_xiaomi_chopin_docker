@@ -28,6 +28,7 @@ make -C "$KERNEL_DIR" O="$OUT_DIR" ARCH=arm64 "$KERNEL_DEFCONFIG"
     --enable BLK_CGROUP \
     --enable BLK_DEV_THROTTLING \
     --enable CGROUP_PERF \
+    --enable FUSE_FS \
     --set-str CMDLINE 'systemd.unified_cgroup_hierarchy=0' \
     --enable CMDLINE_EXTEND \
     --disable CMDLINE_FORCE \

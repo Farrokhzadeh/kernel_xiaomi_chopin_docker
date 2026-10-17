@@ -38,7 +38,7 @@ make -s "${build_args[@]}" kernelrelease > "$DIST_DIR/kernel.release"
 (
     cd "$DIST_DIR"
     sha256sum Image Image.gz Image.gz-dtb chopin.dtb kernel.config \
-        Module.symvers > SHA256SUMS
+        Module.symvers kernel.release > SHA256SUMS
 )
 
 printf 'Build complete: %s\n' "$DIST_DIR"

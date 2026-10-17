@@ -18,6 +18,7 @@ Xiaomi modules are deliberately not redistributed here.
 - Kernel release `4.14.186-ge42bf4992`
 - Docker's generally necessary kernel options
 - OverlayFS on an F2FS Debian root filesystem
+- built-in FUSE filesystem support for userspace mounts (including MEGAcmd)
 - IPv4/IPv6 NAT, bridge netfilter and basic IPVS support
 - cgroup device, pids, CPU bandwidth, block I/O and perf controllers
 - legacy cgroup v1 boot mode for Linux 4.14 compatibility
@@ -101,6 +102,14 @@ are still retained because `CONFIG_CMDLINE_EXTEND=y` is used.
 The Wi-Fi patch restores two Xiaomi/MediaTek private exports used by the vendor
 modules. Its layout and cost are documented in
 [Wi-Fi compatibility](docs/WIFI-COMPATIBILITY.md).
+
+## MEGA FUSE mounts
+
+`CONFIG_FUSE_FS=y` is included and enforced by the build configuration checker.
+This enables the kernel side of FUSE; a working `/dev/fuse`, userspace FUSE
+support and mount permissions are still needed. See
+[MEGA FUSE setup and verification](docs/MEGA-FUSE.md). The GitHub Actions
+runner cannot validate mount permissions on a real phone.
 
 ## Verify a running phone
 
